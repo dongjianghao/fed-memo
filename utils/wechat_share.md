@@ -1,6 +1,6 @@
-## vue-cli 配置微信分享
+### vue-cli 配置微信分享
 
-此方法仅适用于 vue-cli 脚手架使用。本功能使用了`腾讯移动WEB开发平台`的[对外分享组件](http://open.mobile.qq.com/api/component/share)。传统项目请参考该组件内的示例。
+此方法仅适用于 vue-cli 脚手架使用。本功能使用了`腾讯移动WEB开发平台`的[对外分享组件](http://open.mobile.qq.com/api/component/share)。
 
 #### 组件功能
 
@@ -22,7 +22,7 @@ router.beforeEach((to, from, next) => {
 });
 ```
 
-#### vuex 中添加方法
+#### vuex 中添加一下内容
 
 ```js
 export default {
@@ -106,12 +106,13 @@ export default {
 };
 ```
 
-#### page中调用
+#### 调用
 
 ```js
 this.$store.dispatch("setShareData", {
     title: this.dataInfo.title,
     summary: this.dataInfo.introduction,
+    url: document.URL,
     pic: this.dataInfo.cover
 });
 ```
