@@ -1,0 +1,172 @@
+## 字符串操作
+
+返回指定位置的字符
+
+```js
+var str = "abc";
+console.log(str.charAt(0)); //a
+```
+
+返回在指定的位置的字符的 Unicode 编码。
+
+```js
+var str = "abc";
+console.log(str.charCodeAt(1)); //98
+```
+
+字符串切割、分割为数组
+
+```js
+// 第一种，使用slice():
+var myStr = "I,love,you,Do,you,love,me";
+var subStr = myStr.slice(1, 5); //",lov"
+
+// 第二种，使用substring():
+var subStr = myStr.substring(1, 5); //",lov"
+
+// 第三种，使用substr():
+var subStr = myStr.substr(1, 5); //",love"
+// 与第一种和第二种不同的是，substr()第二个参数代表截取的字符串最大长度，如上结果所示。
+
+// 分割为数组
+var substrArray = myStr.split(","); // ["I", "Love", "You", "Do", "you", "love", "me"];
+var arrayLimited = myStr.split(",", 3); // ["I", "Love", "You"];
+```
+
+字符串替换
+
+```js
+// 单单查到字符串应该还不会停止，一般题目都还经常会遇到让你查到并替换为你自己的字符串，例如：
+var myStr = "I,love,you,Do,you,love,me";
+var replacedStr = myStr.replace("love", "hate"); //"I,hate,you,Do,you,love,me"
+
+// 默认只替换第一次查找到的，想要全局替换，需要置上正则全局标识，如：
+var myStr = "I,love,you,Do,you,love,me";
+var replacedStr = myStr.replace(/love/g, "hate"); //"I,hate,you,Do,you,hate,me"
+```
+
+扩展 String 方法，replaceAll 全部替换
+
+```js
+let s = "a/b/c/d";
+String.prototype.replaceAll = function(FindText, RepText) {
+    let regExp = new RegExp(FindText, "g");
+    return this.replace(regExp, RepText);
+};
+s = s.replaceAll("/", "-");
+console.log(s);
+// 输出：a-b-c-d
+```
+
+截取文件格式
+
+```js
+// slice 和 lastIndexOf 的实际应用
+var file = "英文客户端.一带一路.CMS.原型及需求_v1.1_20190226.txt";
+var fileType = file.slice(file.lastIndexOf(".") + 1, file.length); // txt
+```
+
+大小写转换
+
+```js
+var myStr = "I,love,you,Do,you,love,me";
+var lowCaseStr = myStr.toLowerCase(); //"i,love,you,do,you,love,me";
+var upCaseStr = myStr.toUpperCase(); //"I,LOVE,YOU,DO,YOU,LOVE,ME"
+```
+
+获取 URL 中的参数
+
+```js
+function getUrlParam(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return decodeURI(r[2]);
+    return null; //返回参数值
+}
+```
+
+## 数组操作
+
+判断是否为数组 （IE8 及以下不支持，其它主流浏览器都支持）[查看兼容性详情](https://caniuse.com/#search=isArray)
+
+```js
+// 下面的函数调用都返回 true
+Array.isArray([]);
+Array.isArray([1]);
+Array.isArray(new Array());
+// 下面的函数调用都返回 false
+Array.isArray();
+Array.isArray({});
+Array.isArray(null);
+Array.isArray(undefined);
+Array.isArray(17);
+Array.isArray("Array");
+Array.isArray(true);
+Array.isArray(false);
+Array.isArray({ __proto__: Array.prototype });
+```
+
+数组元素的添加
+
+```js
+arrayObj.push(item1, item2, item3); // 将一个或多个新元素添加到数组结尾，并返回数组新长度
+arrayObj.unshift(item1, item2, item3); // 将一个或多个新元素添加到数组开始，数组中的元素自动后移，返回数组新长度
+arrayObject.splice(index,howmany,item1,.....,itemX); // splice() 方法可删除从 index 处开始的零个或多个元素，并且用参数列表中声明的一个或多个值来替换那些被删除的元素。
+```
+
+数组元素的删除
+
+```js
+arrayObj.pop(); //移除最后一个元素并返回该元素值
+arrayObj.shift(); //移除最前一个元素并返回该元素值，数组中元素自动前移
+arrayObj.splice(deletePos, deleteCount); //删除从指定位置deletePos开始的指定数量deleteCount的元素，数组形式返回所移除的元素
+```
+
+数组的截取和合并
+
+```js
+arrayObj.slice(start, [end]); //以数组的形式返回数组的一部分，注意不包括 end 对应的元素，如果省略 end 将复制 start 之后的所有元素
+arrayObj.concat([item1[, item2[, . . . [,itemN]]]]); //将多个数组（也可以是字符串，或者是数组和字符串的混合）连接为一个数组，返回连接好的新的数组
+```
+
+数组的拷贝
+
+```js
+arrayObj.slice(0); //返回数组的拷贝数组，注意是一个新的数组，不是指向
+arrayObj.concat(); //返回数组的拷贝数组，注意是一个新的数组，不是指向
+```
+
+数组元素的排序
+
+```js
+arrayObj.reverse(); //反转元素（最前的排到最后、最后的排到最前），返回数组地址
+arrayObj.sort(); //对数组元素排序，返回数组地址
+```
+
+数组元素的排序
+
+```js
+arrayObj.join(separator); //返回字符串，这个字符串将数组的每一个元素值连接在一起，中间用 separator 隔开。
+
+var arr = ["A", "B", "C", 1, 2, 3];
+arr.join("-"); // 'A-B-C-1-2-3'
+
+// toLocaleString 、toString：可以看作是join的特殊用法，不常用;
+// 如果Array的元素不是字符串，将自动转换为字符串后再连接。
+```
+
+`valueOf` 与 String 类似，Array 也可以通过 indexOf()来搜索一个指定的元素的位置：
+
+```js
+var arr = [10, 20, "30", "xyz"];
+arr.indexOf(10); // 元素10的索引为0
+arr.indexOf(30); // 元素30没有找到，返回-1
+arr.indexOf("30"); // 元素'30'的索引为2
+```
+
+`lastIndexOf` 返回在数组中搜索到的与给定参数相等的元素的最后（最大）索引。
+
+```js
+var arr = [1, 2, 3, 4, 2, 6, 2, 7];
+arr.lastIndexOf(2); // 6
+```

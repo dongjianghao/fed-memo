@@ -2,6 +2,7 @@
 * [常用功能](/utils/index)
     * [vue-cli 微信分享](/utils/wechat_share)
     * [iview-admin 配置](/utils/iview_admin)
+    * [常用方法](/utils/tools)
 * [浏览器相关](/pages/browser)
 * [HTML](/html/index)
 * [Javascript](/js/index)
